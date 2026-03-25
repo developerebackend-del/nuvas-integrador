@@ -1,0 +1,6 @@
+fecha,monto,cliente,segmento
+2026-01-01,100, Ana  ,A
+2026-01-01,100, Ana  ,A
+2026-01-02,220.5,  LUIS,B
+bad_date,foo,Marta,C
+,300,CARLA,B
