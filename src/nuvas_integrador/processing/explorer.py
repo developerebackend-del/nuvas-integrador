@@ -6,8 +6,8 @@ from typing import Any
 import pandas as pd
 
 
-def basic_stats(df: pd.DataFrame) -> dict[str, Any]:
-    """Return compact quality and size metrics."""
+def estadisticas_basicas(df: pd.DataFrame) -> dict[str, Any]:
+    """Retorna metricas compactas de calidad y tamano."""
 
     return {
         "rows": df.shape[0],
@@ -17,8 +17,8 @@ def basic_stats(df: pd.DataFrame) -> dict[str, Any]:
     }
 
 
-def exploratory_report(df: pd.DataFrame) -> dict[str, Any]:
-    """Build a full exploratory description using core Pandas operations."""
+def reporte_exploratorio(df: pd.DataFrame) -> dict[str, Any]:
+    """Construye una descripcion exploratoria completa con operaciones de Pandas."""
 
     info_buffer = StringIO()
     df.info(buf=info_buffer)
