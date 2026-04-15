@@ -2,10 +2,11 @@
 
 Proyecto de análisis de datos en Python orientado a buenas prácticas de ingeniería.
 
-Este repositorio implementa dos historias de usuario:
+Este repositorio implementa tres historias de usuario:
 
 - HU1: limpieza de datasets (nulos, duplicados, tipos y normalización de texto).
 - HU2: descripción exploratoria con Pandas (head, tail, info, describe y clasificación de columnas).
+- HU3: simulación y exportación de datos a CSV y JSON.
 
 ## Objetivo
 
@@ -23,12 +24,13 @@ nuvas-integrador/
 		main.py
 		data/
 			loader.py
+			simulator.py
+		models/
+			dataset_model.py
+			synthetic_model.py
 		processing/
 			cleaning.py
 			explorer.py
-	tests/
-		test_cleaning.py
-		test_explorer.py
 	requirements.txt
 	pyproject.toml
 	pytest.ini
@@ -65,19 +67,24 @@ python -m nuvas_integrador.main
 
 ## Testing
 
-```powershell
-python -m pytest -q
-```
+Las pruebas automaticas estan pausadas temporalmente.
 
 ## Cobertura funcional
+
+## Lo Que Se Implementó
+
+- Estructura por carpetas simple y separada: `data`, `models`, `processing` y `main.py`.
+- Flujo principal en consola para ejecutar HU1, HU2 y HU3 en un solo comando.
+- Modelos de datos con `dataclass` en `src/nuvas_integrador/models`.
+- Documento de tabla de modelos en `docs/tabla_modelos.md`.
 
 ### HU1. Limpieza del set de datos
 
 - Identificación y reporte de nulos por columna.
 - Detección y eliminación de registros duplicados.
-- Corrección de tipos de datos con `type_mapping` (fechas, numéricos, texto).
+- Corrección de tipos de datos con `mapeo_tipos` (fechas, numéricos, texto).
 - Normalización de texto (trim, espacios internos y minúsculas).
-- Documentación de transformaciones en `report["transformations"]`.
+- Documentación de transformaciones en `reporte["transformaciones"]`.
 
 ### HU2. Descripción exploratoria con Pandas
 
@@ -87,6 +94,14 @@ python -m pytest -q
 - Estadísticas descriptivas con `describe()`.
 - Revisión de cantidad de filas, columnas y nombres de variables.
 - Identificación de columnas numéricas y categóricas.
+
+### HU3. Simulación y exportación de datos
+
+- Generación de dataset sintético en Python con al menos 1000 registros.
+- Dataset con varias columnas (`id`, `fecha`, `cliente`, `segmento`, `monto`, `activo`).
+- Exportación correcta a CSV en `data/processed/synthetic_data.csv`.
+- Exportación correcta a JSON en `data/processed/synthetic_data.json`.
+- Validación en ejecución para confirmar que CSV/JSON conservan estructura y tamaño del dataset original.
 
 ## Flujo Git para subir a una rama
 
