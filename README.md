@@ -1,127 +1,133 @@
-# Nuvas Integrador
+# Proyecto de Analisis de Datos con Pandas
 
-Proyecto de análisis de datos en Python orientado a buenas prácticas de ingeniería.
+Este proyecto implementa un flujo completo de datos para:
 
-Este repositorio implementa tres historias de usuario:
+- Simular informacion sintetica con errores controlados.
+- Limpiar y estandarizar el dataset.
+- Realizar descripcion exploratoria con Pandas.
+- Exportar resultados limpios a CSV y JSON.
 
-- HU1: limpieza de datasets (nulos, duplicados, tipos y normalización de texto).
-- HU2: descripción exploratoria con Pandas (head, tail, info, describe y clasificación de columnas).
-- HU3: simulación y exportación de datos a CSV y JSON.
+## Historias de Usuario Cubiertas
 
-## Objetivo
+### HU 1. Limpieza del set de datos
 
-Preparar datos confiables para análisis y generar una descripción exploratoria clara del dataset, manteniendo una estructura mantenible y testeable.
+Como analista de datos, se implemento una rutina de limpieza en `notebook/limpieza.py` que permite:
 
-## Estructura del proyecto
+- Identificar y reportar valores nulos por columna.
+- Detectar y eliminar registros duplicados.
+- Corregir tipos de datos (numericos y fecha).
+- Normalizar texto (espacios y mayusculas/minusculas).
+- Documentar transformaciones en un reporte Markdown.
+
+Salida principal:
+
+- `salidas/reporte_limpieza.md`
+
+### HU 2. Descripcion exploratoria con Pandas
+
+Como analista de datos, se implemento la exploracion en `main.py` para:
+
+- Cargar los datos en un DataFrame.
+- Visualizar muestras con `head()` y `tail()`.
+- Inspeccionar estructura con `info()`.
+- Generar estadisticas descriptivas con `describe()`.
+- Revisar cantidad de filas, columnas y nombres de variables.
+- Identificar columnas numericas y categoricas.
+
+Salida principal:
+
+- `salidas/reporte_exploratorio.json`
+
+### HU 3. Simulacion y exportacion de datos
+
+Como desarrollador de soluciones de datos, se implemento la simulacion en `utils/simulacion.py` para:
+
+- Generar dataset sintetico con al menos 1000 registros (actualmente 1200).
+- Incluir varias columnas (id, servicio, costo, codigo, fecha y columnas adicionales).
+- Exportar dataset limpio a `.csv` y `.json`.
+- Verificar recarga de ambos formatos sin perdida estructural relevante.
+
+Salidas principales:
+
+- `salidas/simulaciones_limpias.csv`
+- `salidas/simulaciones_limpias.json`
+
+## Estructura del Proyecto
 
 ```text
-nuvas-integrador/
-	data/
-		raw/
-			data.csv
-	src/nuvas_integrador/
-		config.py
-		main.py
-		data/
-			loader.py
-			simulator.py
-		models/
-			dataset_model.py
-			synthetic_model.py
-		processing/
-			cleaning.py
-			explorer.py
-	requirements.txt
-	pyproject.toml
-	pytest.ini
+analisisDatos/
+  main.py
+  requirements.txt
+  README.md
+  notebook/
+    limpieza.py
+  utils/
+    simulacion.py
+  salidas/
+    reporte_exploratorio.json
+    reporte_limpieza.md
+    simulaciones_limpias.csv
+    simulaciones_limpias.json
 ```
 
-## Requisitos
+## Preparar Entorno Virtual (Windows PowerShell)
 
-- Python 3.11+
-- pip
-
-## Configuración del entorno
-
-Windows (PowerShell):
+Desde la carpeta raiz del proyecto:
 
 ```powershell
-py -3.11 -m venv venv
-.\venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-python -m pip install -e .
+# 1) Crear entorno virtual
+python -m venv .venv
+
+# 2) Activar entorno virtual
+.\.venv\Scripts\Activate.ps1
+
+# 3) Instalar dependencias
+pip install -r requirements.txt
 ```
 
-Si PowerShell bloquea la activación del entorno, puedes usar el ejecutable directo:
+Si PowerShell bloquea la activacion por politicas de ejecucion:
 
 ```powershell
-.\venv\Scripts\python.exe -m pip install -r requirements.txt
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
-## Ejecución
+Despues vuelve a ejecutar:
 
 ```powershell
-python -m nuvas_integrador.main
+.\.venv\Scripts\Activate.ps1
 ```
 
-## Testing
-
-Las pruebas automaticas estan pausadas temporalmente.
-
-## Cobertura funcional
-
-## Lo Que Se Implementó
-
-- Estructura por carpetas simple y separada: `data`, `models`, `processing` y `main.py`.
-- Flujo principal en consola para ejecutar HU1, HU2 y HU3 en un solo comando.
-- Modelos de datos con `dataclass` en `src/nuvas_integrador/models`.
-- Documento de tabla de modelos en `docs/tabla_modelos.md`.
-
-### HU1. Limpieza del set de datos
-
-- Identificación y reporte de nulos por columna.
-- Detección y eliminación de registros duplicados.
-- Corrección de tipos de datos con `mapeo_tipos` (fechas, numéricos, texto).
-- Normalización de texto (trim, espacios internos y minúsculas).
-- Documentación de transformaciones en `reporte["transformaciones"]`.
-
-### HU2. Descripción exploratoria con Pandas
-
-- Carga del dataset en DataFrame con `load_csv`.
-- Visualización de muestras con `head()` y `tail()`.
-- Inspección de estructura con `info()`.
-- Estadísticas descriptivas con `describe()`.
-- Revisión de cantidad de filas, columnas y nombres de variables.
-- Identificación de columnas numéricas y categóricas.
-
-### HU3. Simulación y exportación de datos
-
-- Generación de dataset sintético en Python con al menos 1000 registros.
-- Dataset con varias columnas (`id`, `fecha`, `cliente`, `segmento`, `monto`, `activo`).
-- Exportación correcta a CSV en `data/processed/synthetic_data.csv`.
-- Exportación correcta a JSON en `data/processed/synthetic_data.json`.
-- Validación en ejecución para confirmar que CSV/JSON conservan estructura y tamaño del dataset original.
-
-## Flujo Git para subir a una rama
-
-Ejemplo para trabajar en una rama de funcionalidad:
+Para desactivar el entorno:
 
 ```powershell
-# 1) Verifica estado actual
-git status
-
-# 2) Crea y cámbiate a una rama nueva
-git checkout -b feature/hu1-hu2
-
-# 3) Agrega cambios
-git add .
-
-# 4) Crea commit
-git commit -m "feat: implementar HU1 y HU2 con tests"
-
-# 5) Sube la rama al remoto
-git push -u origin feature/hu1-hu2
+deactivate
 ```
 
-Después, crea el Pull Request desde esa rama hacia `main` en GitHub.
+## Ejecutar el Proyecto
+
+Con el entorno activado:
+
+```powershell
+python main.py
+```
+
+El script:
+
+- Simula 1200 registros.
+- Ejecuta exploracion estadistica.
+- Limpia y estandariza los datos.
+- Exporta resultados a CSV y JSON.
+- Genera reportes en la carpeta `salidas/`.
+
+## Validacion Esperada
+
+Al ejecutar correctamente, se imprime un resumen similar a:
+
+- Registros simulados: 1200
+- Registros limpios: valor variable segun simulacion
+- Validacion exportacion: misma estructura de columnas en CSV y JSON
+
+## Notas
+
+- El generador incluye errores controlados para probar el proceso de limpieza.
+- El numero de registros limpios puede cambiar en cada ejecucion por la aleatoriedad de la simulacion.
