@@ -121,26 +121,26 @@ def documentar_transformaciones(reporte, ruta_reporte):
     lineas = [
         "# Reporte de limpieza de datos",
         "",
-        f"- Registros iniciales: {reporte['registros_iniciales']}",
-        f"- Duplicados iniciales detectados: {reporte['duplicados_iniciales']}",
-        f"- Registros eliminados por nulos obligatorios: {reporte['registros_eliminados_por_nulos_obligatorios']}",
-        f"- Registros eliminados por duplicados: {reporte['registros_eliminados_por_duplicados']}",
-        f"- Registros finales: {reporte['registros_finales']}",
+        f"Registros iniciales: {reporte['registros_iniciales']}",
+        f"Duplicados iniciales detectados: {reporte['duplicados_iniciales']}",
+        f"Registros eliminados por nulos obligatorios: {reporte['registros_eliminados_por_nulos_obligatorios']}",
+        f"Registros eliminados por duplicados: {reporte['registros_eliminados_por_duplicados']}",
+        f"Registros finales: {reporte['registros_finales']}",
         "",
-        "## Nulos iniciales por columna",
+        "Nulos iniciales por columna",
     ]
 
     for columna, cantidad in reporte["nulos_iniciales_por_columna"].items():
         lineas.append(f"- {columna}: {cantidad}")
 
     lineas.append("")
-    lineas.append("## Nulos finales por columna")
+    lineas.append("Nulos finales por columna")
     for columna, cantidad in reporte["nulos_finales_por_columna"].items():
         lineas.append(f"- {columna}: {cantidad}")
 
     lineas.append("")
-    lineas.append("## Tipos finales")
+    lineas.append("ipos finales")
     for columna, tipo in reporte["tipos_finales"].items():
-        lineas.append(f"- {columna}: {tipo}")
+        lineas.append(f"-{columna}: {tipo}")
 
     ruta.write_text("\n".join(lineas), encoding="utf-8")

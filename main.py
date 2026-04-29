@@ -58,14 +58,6 @@ def exportar_y_validar(df, ruta_csv, ruta_json):
 
 
 def main():
-    # ZONA PARA IMPORTAR SIMULACIONES
-    # (ya hecho arriba con: from utils.simulacion import generar_simulacion)
-
-    # ZONA PARA IMPORTAR LIMPIEZAS
-    # (ya hecho arriba con: from notebook.limpieza import limpiar_datos)
-
-    # ZONA PARA IMPORTAR DESCRIPCIONES
-    # (ya hecho arriba con: from notebook.descripcion import describir_datos)
 
     salida = Path("salidas")
     salida.mkdir(parents=True, exist_ok=True)
@@ -77,23 +69,23 @@ def main():
     simulaciones_df = pd.DataFrame(simulaciones)
 
     # HU2: DESCRIPCION EXPLORATORIA SOBRE DATOS ORIGINALES
-    print("\n=== EXPLORACION DE DATOS ORIGINALES (HU2) ===\n")
+    print("EXPLORACION DE DATOS ORIGINALES (HU2)")
     reporte_exploratorio = describir_data_frame(simulaciones_df)
     pd.Series(reporte_exploratorio).to_json(
         salida / "reporte_exploratorio.json", force_ascii=False, indent=2
     )
 
     # LIMPIANDO EL SET DE DATOS (HU1)
-    print("\n=== LIMPIANDO EL SET DE DATOS (HU1) ===\n")
+    print("LIMPIANDO EL SET DE DATOS (HU1)")
     simulaciones_limpias, reporte_limpieza = limpiar_datos(simulaciones_df)
     documentar_transformaciones(reporte_limpieza, salida / "reporte_limpieza.md")
 
     # DESCRIBIENDO LOS DATOS (HU2)
-    print("\n=== DESCRIPCION DETALLADA DE DATOS LIMPIOS (HU2) ===\n")
+    print("DESCRIPCION DETALLADA DE DATOS LIMPIOS (HU2)")
     describir_datos(simulaciones_limpias)
 
     # HU3: EXPORTACION Y VALIDACION
-    print("\n=== EXPORTANDO A CSV Y JSON (HU3) ===\n")
+    print("EXPORTANDO A CSV Y JSON (HU3)")
     validacion = exportar_y_validar(
         simulaciones_limpias,
         salida / "simulaciones_limpias.csv",
@@ -101,18 +93,18 @@ def main():
     )
 
     print("Resumen del proceso:")
-    print(f"- Registros simulados: {len(simulaciones_df)}")
-    print(f"- Registros limpios: {len(simulaciones_limpias)}")
-    print(f"- Reporte exploratorio: {salida / 'reporte_exploratorio.json'}")
-    print(f"- Reporte limpieza: {salida / 'reporte_limpieza.md'}")
-    print("- Validacion de exportacion:")
-    print(f"  * Filas en CSV: {validacion['csv_filas']}")
-    print(f"  * Filas en JSON: {validacion['json_filas']}")
-    print(f"  * Filas en dataset limpio: {validacion['filas_original']}")
+    print(f"Registros simulados: {len(simulaciones_df)}")
+    print(f"Registros limpios: {len(simulaciones_limpias)}")
+    print(f"Reporte exploratorio: {salida / 'reporte_exploratorio.json'}")
+    print(f"Reporte limpieza: {salida / 'reporte_limpieza.md'}")
+    print("Validacion de exportacion:")
+    print(f"Filas en CSV: {validacion['csv_filas']}")
+    print(f"Filas en JSON: {validacion['json_filas']}")
+    print(f"Filas en dataset limpio: {validacion['filas_original']}")
     if validacion["misma_estructura_columnas"]:
-        print("  * Estructura de columnas: OK")
+        print("Estructura de columnas: OK")
     else:
-        print("  * Estructura de columnas: revisar")
+        print("Estructura de columnas: revisar")
 
 
 if __name__ == "__main__":
