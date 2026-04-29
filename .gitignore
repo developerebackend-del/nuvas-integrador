@@ -1,24 +1,4 @@
-# Bytecode y cachés de Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.egg-info/
-
-# Cachés de pruebas y herramientas
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-htmlcov/
-
-# Entornos virtuales
-venv/
+*.pyc
 .venv/
-env/
-
-# Configuración del IDE
-.vscode/
-
-# Archivos del sistema operativo
-.DS_Store
-Thumbs.db
+venv/
