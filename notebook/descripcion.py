@@ -49,3 +49,5 @@ def describir_datos(data_frame_limpio):
         print("*** DESCRIPCION DE FECHAS ***")
         print(f"Fecha mas antigua: {data_frame_limpio['fecha'].min()}")
         print(f"Fecha mas reciente: {data_frame_limpio['fecha'].max()}\n")
+
+#LLLLLLLLL
